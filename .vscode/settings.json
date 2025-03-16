@@ -1,6 +1,6 @@
 {
   "editor.formatOnSave": false,
-  "eslint.useFlatConfig": true,
+  "eslint.useFlatConfig": false,
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit",
     "source.fixAll.eslint": "explicit",
@@ -17,6 +17,7 @@
     "editor.formatOnSave": false
   },
   "editor.cursorBlinking": "blink",
-  "eslint.enable": false,
+  "eslint.enable": true,
   "eslint.format.enable": false,
+  "eslint.useESLintClass": true,
 }

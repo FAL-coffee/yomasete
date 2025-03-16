@@ -1,4 +1,3 @@
-// src/utils/books.ts
 interface BookData {
   title: string
   author: string
@@ -9,7 +8,11 @@ interface BookData {
 export const searchBookByISBN = async (isbn: string): Promise<BookData | null> => {
   try {
     // Using Google Books API
-    const apiKey = 'AIzaSyCL5YqyKqYQ16QtdFHUlNnSmW_27r8TcBU'
+    const apiKey = import.meta.env.VITE_GOOGLE_BOOKS_API_KEY
+    if (!apiKey) {
+      throw new Error('Missing Google Books API key')
+    }
+    
     const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${apiKey}`)
     const data = await response.json()
 
