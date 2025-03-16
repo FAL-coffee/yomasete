@@ -7,7 +7,7 @@ const Layout = () => {
         <nav className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
           <div className='flex h-16 items-center justify-between'>
             <div className='flex items-center'>
-              <Link to='/' className='text-gray-900 hover:text-gray-700'>
+              <Link className='text-gray-900 hover:text-gray-700' to='/'>
                 Home
               </Link>
             </div>

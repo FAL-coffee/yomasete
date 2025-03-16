@@ -1,11 +1,11 @@
-// src/pages/Auth.tsx
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Root as FormRoot, Field } from '@radix-ui/react-form'
+import { Field, Root as FormRoot } from '@radix-ui/react-form'
 import { Button, Container, Flex, Heading, Text, TextField } from '@radix-ui/themes'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+
 import { supabase } from '../config/supabase'
 
-export const Auth: React.FC = () => {
+export const Auth = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isSignUp, setIsSignUp] = useState(false)
@@ -35,16 +35,17 @@ export const Auth: React.FC = () => {
               name: data.user.user_metadata?.username || '', // ユーザー名があれば使用
               profile_image: '', // デフォルト値や空文字など
               created_at: data.user.created_at,
-              updated_at: data.user.created_at
+              updated_at: data.user.created_at,
             })
-          
+
           if (insertError) {
             console.error('Error inserting user into table:', insertError)
           }
         }
 
         alert('確認リンクをメールで送信しました。メールをチェックしてください！')
-      } else {
+      }
+      else {
         const { error } = await supabase.auth.signInWithPassword({
           email,
           password,
@@ -52,10 +53,12 @@ export const Auth: React.FC = () => {
         if (error) throw error
         navigate('/')
       }
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Authentication error:', error)
       alert(error instanceof Error ? error.message : 'An error occurred')
-    } finally {
+    }
+    finally {
       setLoading(false)
     }
   }
@@ -66,55 +69,58 @@ export const Auth: React.FC = () => {
         provider: 'google',
       })
       if (error) throw error
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Google sign in error:', error)
       alert(error instanceof Error ? error.message : 'An error occurred')
     }
   }
 
   return (
-    <Container size="1">
-      <Flex direction="column" gap="4" style={{ maxWidth: '400px', margin: '40px auto', padding: '20px' }}>
-        <Heading size="6" align="center">
+    <Container size='1'>
+      <Flex direction='column' gap='4' style={{ maxWidth: '400px', margin: '40px auto', padding: '20px' }}>
+        <Heading align='center' size='6'>
           {isSignUp ? 'Create Account' : 'Sign In'}
         </Heading>
-        
+
         <FormRoot onSubmit={handleSubmit}>
-          <Flex direction="column" gap="3">
-            <Field name="email">
+          <Flex direction='column' gap='3'>
+            <Field name='email'>
               <TextField.Root
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Email"
-                  required>
+                required
+                onChange={e => setEmail(e.target.value)}
+                placeholder='Email'
+                type='email'
+                value={email}
+              >
               </TextField.Root>
             </Field>
 
-            <Field name="password">
+            <Field name='password'>
               <TextField.Root
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Password"
-                  required>
+                required
+                onChange={e => setPassword(e.target.value)}
+                placeholder='Password'
+                type='password'
+                value={password}
+              >
               </TextField.Root>
             </Field>
 
-            <Button type="submit" disabled={loading}>
+            <Button disabled={loading} type='submit'>
               {isSignUp ? 'Sign Up' : 'Sign In'}
             </Button>
           </Flex>
         </FormRoot>
 
-        <Button onClick={handleGoogleSignIn} variant="soft">
+        <Button onClick={handleGoogleSignIn} variant='soft'>
           Sign in with Google
         </Button>
 
-        <Text align="center">
+        <Text align='center'>
           <Button
-            variant="ghost"
             onClick={() => setIsSignUp(!isSignUp)}
+            variant='ghost'
           >
             {isSignUp ? 'Already have an account? Sign In' : 'Need an account? Sign Up'}
           </Button>

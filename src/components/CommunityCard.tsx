@@ -1,6 +1,5 @@
-// src/components/CommunityCard.tsx
-import React from 'react'
-import { Card, Text, Button } from '@radix-ui/themes'
+import { Button, Card, Text } from '@radix-ui/themes'
+
 import { Community } from '../types'
 
 interface CommunityCardProps {
@@ -10,33 +9,39 @@ interface CommunityCardProps {
   memberCount: number
 }
 
-export const CommunityCard: React.FC<CommunityCardProps> = ({
+export const CommunityCard = ({
   community,
   onJoin,
   isMember,
-  memberCount
-}) => {
+  memberCount,
+}: CommunityCardProps) => {
   return (
     <Card style={{ maxWidth: '400px' }}>
       <div style={{ padding: '1rem' }}>
-        <Text size="3" weight="bold">
+        <Text size='3' weight='bold'>
           {community.name}
         </Text>
-        <Text as="p" size="2" color="gray">
+        <Text as='p' color='gray' size='2'>
           {community.description}
         </Text>
-        <Text as="p" size="2" style={{ marginTop: '0.5rem' }}>
-          メンバー: {memberCount} / {community.max_members}
+        <Text as='p' size='2' style={{ marginTop: '0.5rem' }}>
+          メンバー:
+          {' '}
+          {memberCount}
+          {' '}
+          /
+          {' '}
+          {community.max_members}
         </Text>
-        
+
         {!isMember && onJoin && memberCount < community.max_members && (
           <Button onClick={onJoin} style={{ marginTop: '1rem' }}>
             参加する
           </Button>
         )}
-        
+
         {isMember && (
-          <Text size="2" color="blue" style={{ marginTop: '1rem' }}>
+          <Text color='blue' size='2' style={{ marginTop: '1rem' }}>
             参加中
           </Text>
         )}

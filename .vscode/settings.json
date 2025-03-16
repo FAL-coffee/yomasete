@@ -1,11 +1,11 @@
 {
   "editor.formatOnSave": false,
-  "eslint.useFlatConfig": false,
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit",
     "source.fixAll.eslint": "explicit",
     "source.organizeImports": "never"
   },
+  "eslint.useESLintClass": true,
   // TS,TSXのファイル保存時に自動フォーマットを行わない(ESLintに任せる)
   "[typescript]": {
     "editor.formatOnSave": false
@@ -16,8 +16,4 @@
   "[javascript]": {
     "editor.formatOnSave": false
   },
-  "editor.cursorBlinking": "blink",
-  "eslint.enable": true,
-  "eslint.format.enable": false,
-  "eslint.useESLintClass": true,
 }

@@ -1,5 +1,5 @@
-// src/hooks/useAuth.ts
 import { useEffect, useState } from 'react'
+
 import { supabase } from '../config/supabase'
 import { User } from '../types'
 
@@ -30,7 +30,7 @@ export const useAuth = () => {
               name: session.user.user_metadata?.username || '',
               profile_image: session.user.user_metadata?.avatar_url || '', // avatar_url を利用
               created_at: session.user.created_at,
-              updated_at: session.user.created_at
+              updated_at: session.user.created_at,
             })
           if (insertError) {
             console.error('Error inserting user:', insertError)
@@ -40,7 +40,7 @@ export const useAuth = () => {
           id: session.user.id,
           email: session.user.email!,
           created_at: session.user.created_at,
-          username: session.user.user_metadata.username
+          username: session.user.user_metadata.username,
         }
         setUser(userData)
       }
@@ -71,7 +71,7 @@ export const useAuth = () => {
                 name: session.user.user_metadata?.username || '',
                 profile_image: '',
                 created_at: session.user.created_at,
-                updated_at: session.user.created_at
+                updated_at: session.user.created_at,
               })
             if (insertError) {
               console.error('Error inserting user:', insertError)
@@ -81,14 +81,15 @@ export const useAuth = () => {
             id: session.user.id,
             email: session.user.email!,
             created_at: session.user.created_at,
-            username: session.user.user_metadata.username
+            username: session.user.user_metadata.username,
           }
           setUser(userData)
-        } else {
+        }
+        else {
           setUser(null)
         }
         setLoading(false)
-      }
+      },
     )
 
     return () => {
@@ -100,7 +101,8 @@ export const useAuth = () => {
     try {
       await supabase.auth.signOut()
       setUser(null)
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Error signing out:', error)
     }
   }
@@ -108,7 +110,7 @@ export const useAuth = () => {
   const updateProfile = async (username: string) => {
     try {
       const { data: { user: updatedUser }, error } = await supabase.auth.updateUser({
-        data: { username }
+        data: { username },
       })
 
       if (error) throw error
@@ -118,11 +120,12 @@ export const useAuth = () => {
           id: updatedUser.id,
           email: updatedUser.email!,
           created_at: updatedUser.created_at,
-          username: updatedUser.user_metadata.username
+          username: updatedUser.user_metadata.username,
         }
         setUser(userData)
       }
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Error updating profile:', error)
       throw error
     }
@@ -132,6 +135,6 @@ export const useAuth = () => {
     user,
     loading,
     signOut,
-    updateProfile
+    updateProfile,
   }
 }

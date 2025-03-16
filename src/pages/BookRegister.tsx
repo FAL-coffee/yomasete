@@ -1,11 +1,11 @@
-// src/pages/BookRegister.tsx
-import React, { useState, useRef, useEffect } from 'react'
 import { Button, TextField } from '@radix-ui/themes'
-import { useAuth } from '../hooks/useAuth'
-import { supabase } from '../config/supabase'
-import { searchBookByISBN } from '../utils/books'
-import * as styles from '../styles/theme.css'
 import Quagga from 'quagga'
+import { useEffect, useRef, useState } from 'react'
+
+import { supabase } from '../config/supabase'
+import { useAuth } from '../hooks/useAuth'
+import * as styles from '../styles/theme.css'
+import { searchBookByISBN } from '../utils/books'
 
 // Quaggaの検出結果の型定義（必要に応じて拡張してください）
 interface CodeResult {
@@ -16,10 +16,9 @@ interface CodeResult {
 
 interface QuaggaJSResultObject {
   codeResult: CodeResult
-  // 他のプロパティがあれば追記
 }
 
-export const BookRegister: React.FC = () => {
+export const BookRegister = () => {
   const { user } = useAuth()
   const [isbn, setIsbn] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
@@ -47,13 +46,13 @@ export const BookRegister: React.FC = () => {
           type: 'LiveStream',
           target: scannerRef.current,
           constraints: {
-            facingMode: 'environment'
-          }
+            facingMode: 'environment',
+          },
         },
         decoder: {
           // ISBNは一般的にEAN-13形式のバーコードです
-          readers: ['ean_reader']
-        }
+          readers: ['ean_reader'],
+        },
       }, (err: Error | null) => {
         if (err) {
           console.error('Quaggaの初期化エラー:', err)
@@ -89,7 +88,7 @@ export const BookRegister: React.FC = () => {
 
     try {
       const bookData = await searchBookByISBN(isbn)
-      
+
       if (!bookData) {
         setError('書籍が見つかりませんでした')
         return
@@ -103,7 +102,7 @@ export const BookRegister: React.FC = () => {
           author: bookData.author,
           cover_url: bookData.coverUrl,
           owner_id: user?.id,
-          status: 'available'
+          status: 'available',
         })
 
       if (dbError) throw dbError
@@ -111,10 +110,12 @@ export const BookRegister: React.FC = () => {
       // フォームをリセット
       setIsbn('')
       alert('書籍登録に成功しました！')
-    } catch (err) {
+    }
+    catch (err) {
       console.error('書籍登録エラー:', err)
       setError('書籍の登録に失敗しました')
-    } finally {
+    }
+    finally {
       setLoading(false)
     }
   }
@@ -130,17 +131,17 @@ export const BookRegister: React.FC = () => {
 
         <form onSubmit={handleSubmit}>
           <TextField.Root
-            placeholder="ISBN"
-            value={isbn}
-            onChange={(e) => setIsbn(e.target.value)}
             required
+            onChange={e => setIsbn(e.target.value)}
+            placeholder='ISBN'
+            value={isbn}
           />
-          
+
           {error && (
             <p style={{ color: 'red', marginTop: '0.5rem' }}>{error}</p>
           )}
 
-          <Button type="submit" disabled={loading} style={{ marginTop: '1rem', width: '100%' }}>
+          <Button disabled={loading} style={{ marginTop: '1rem', width: '100%' }} type='submit'>
             {loading ? '登録中…' : 'Register Book'}
           </Button>
         </form>

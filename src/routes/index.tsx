@@ -1,9 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom'
+
 import Layout from '../components/Layout'
-import { Home } from '../pages/Home'
 import { Auth } from '../pages/Auth'
-import { Communities } from '../pages/Communities'
 import { BookRegister } from '../pages/BookRegister'
+import { Communities } from '../pages/Communities'
+import { Home } from '../pages/Home'
 import { Profile } from '../pages/Profile'
 
 export const router = createBrowserRouter([
@@ -34,8 +35,8 @@ export const router = createBrowserRouter([
       },
     ],
   },
-],{
+], {
   future: {
     v7_relativeSplatPath: true,
-  },  
+  },
 })

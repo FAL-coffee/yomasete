@@ -1,13 +1,13 @@
-// src/pages/Profile.tsx
-import React, { useState, useEffect, useCallback } from 'react'
 import { Button, TextField } from '@radix-ui/themes'
-import { useAuth } from '../hooks/useAuth'
-import { supabase } from '../config/supabase'
-import { BookCard } from '../components/BookCard'
-import { Book } from '../types'
-import * as styles from '../styles/theme.css'
+import { useCallback, useEffect, useState } from 'react'
 
-export const Profile: React.FC = () => {
+import { BookCard } from '../components/BookCard'
+import { supabase } from '../config/supabase'
+import { useAuth } from '../hooks/useAuth'
+import * as styles from '../styles/theme.css'
+import { Book } from '../types'
+
+export const Profile = () => {
   const { user, updateProfile } = useAuth()
   const [username, setUsername] = useState(user?.username || '')
   const [myBooks, setMyBooks] = useState<Book[]>([])
@@ -22,7 +22,8 @@ export const Profile: React.FC = () => {
 
       if (error) throw error
       setMyBooks(data as Book[])
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Error fetching books:', error)
     }
   }, [user?.id])
@@ -38,10 +39,12 @@ export const Profile: React.FC = () => {
     try {
       await updateProfile(username)
       alert('Profile updated successfully!')
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Error updating profile:', error)
       alert('Failed to update profile')
-    } finally {
+    }
+    finally {
       setLoading(false)
     }
   }
@@ -52,12 +55,12 @@ export const Profile: React.FC = () => {
 
       <form onSubmit={handleUpdateProfile} style={{ maxWidth: '400px', margin: '2rem 0' }}>
         <TextField.Root
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
           required
+          onChange={e => setUsername(e.target.value)}
+          placeholder='Username'
+          value={username}
         />
-        <Button type="submit" disabled={loading} style={{ marginTop: '1rem' }}>
+        <Button disabled={loading} style={{ marginTop: '1rem' }} type='submit'>
           Update Profile
         </Button>
       </form>
@@ -65,7 +68,7 @@ export const Profile: React.FC = () => {
       <h2>My Books</h2>
       <div style={{ display: 'grid', gap: '2rem', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))' }}>
         {myBooks.map(book => (
-          <BookCard key={book.id} book={book} isOwner={true} />
+          <BookCard book={book} isOwner={true} key={book.id} />
         ))}
       </div>
     </div>
