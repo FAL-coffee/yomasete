@@ -1,0 +1,96 @@
+classDiagram
+    class User {
+        +uuid id
+        +string email
+        +string name
+        +string profile_image
+        +datetime created_at
+        +datetime updated_at
+        +createUser()
+        +updateProfile()
+        +getBooks()
+        +getCommunities()
+    }
+
+    class Community {
+        +uuid id
+        +string name
+        +string description
+        +string image
+        +string plan_type
+        +int member_limit
+        +datetime created_at
+        +createCommunity()
+        +addMember()
+        +removeMember()
+        +updateDetails()
+    }
+
+    class CommunityMember {
+        +uuid community_id
+        +uuid user_id
+        +string role
+        +datetime joined_at
+        +addMember()
+        +updateRole()
+        +removeMember()
+    }
+
+    class Book {
+        +uuid id
+        +string isbn
+        +string title
+        +string author
+        +string publisher
+        +string cover_image
+        +uuid owner_id
+        +string status
+        +createBook()
+        +updateStatus()
+        +getDetails()
+    }
+
+    class Transaction {
+        +uuid id
+        +uuid book_id
+        +uuid borrower_id
+        +uuid lender_id
+        +string status
+        +datetime borrow_date
+        +datetime due_date
+        +datetime return_date
+        +createTransaction()
+        +updateStatus()
+        +generateShippingLabel()
+    }
+
+    class Shipping {
+        +uuid id
+        +uuid transaction_id
+        +string tracking_number
+        +string shipping_label
+        +string status
+        +datetime created_at
+        +createShipping()
+        +updateStatus()
+        +getTrackingInfo()
+    }
+
+    class Notification {
+        +uuid id
+        +uuid user_id
+        +string type
+        +string message
+        +bool is_read
+        +datetime created_at
+        +createNotification()
+        +markAsRead()
+        +getUnreadCount()
+    }
+
+    User "1" -- "*" CommunityMember
+    Community "1" -- "*" CommunityMember
+    User "1" -- "*" Book
+    Book "1" -- "*" Transaction
+    Transaction "1" -- "1" Shipping
+    User "1" -- "*" Notification

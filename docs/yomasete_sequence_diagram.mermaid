@@ -1,0 +1,46 @@
+sequenceDiagram
+    participant U as User
+    participant F as Frontend
+    participant A as Auth
+    participant DB as Supabase DB
+    participant S as Storage
+    participant GB as Google Books API
+    participant Y as Yamato API
+
+    %% Authentication Flow
+    U->>F: Login Request
+    F->>A: Authenticate User
+    A->>DB: Verify Credentials
+    DB-->>A: Return User Data
+    A-->>F: Auth Token
+    F-->>U: Login Success
+
+    %% Book Registration Flow
+    U->>F: Scan Book Barcode
+    F->>GB: Fetch Book Data
+    GB-->>F: Book Details
+    F->>S: Upload Cover Image
+    S-->>F: Image URL
+    F->>DB: Save Book Data
+    DB-->>F: Confirmation
+    F-->>U: Book Registered
+
+    %% Lending Process Flow
+    U->>F: Request to Borrow
+    F->>DB: Create Transaction
+    DB->>DB: Check Availability
+    DB-->>F: Transaction Created
+    F->>Y: Generate Shipping Label
+    Y-->>F: Shipping Label
+    F->>DB: Update Transaction
+    F->>DB: Create Notification
+    DB-->>F: Success
+    F-->>U: Borrow Request Complete
+
+    %% Return Process Flow
+    U->>F: Initiate Return
+    F->>Y: Generate Return Label
+    Y-->>F: Return Label
+    F->>DB: Update Transaction
+    DB-->>F: Confirmation
+    F-->>U: Return Initiated

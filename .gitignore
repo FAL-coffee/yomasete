@@ -1,0 +1,31 @@
+node_modules
+
+/.cache
+/build
+/public/build
+.env
+
+# Yarn v4
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# ESLint
+.eslintcache
+
+# Storybook
+*storybook.log
+
+# Sentry Config File
+.sentryclirc
+.env.sentry-build-plugin
+
+# React Router
+.react-router/
+
+# Vite env file
+.env.local
+.env.*.local
