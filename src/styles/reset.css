@@ -1,0 +1,78 @@
+/**
+Reset CSS
+@see https://piccalil.li/blog/a-more-modern-css-reset/
+*/
+
+/* ボックスサイズのルール */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* フォントサイズの膨張を防ぐ */
+html {
+    -moz-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+}
+
+/* デフォルトのマージンを削除 */
+body, h1, h2, h3, h4, p,
+figure, blockquote, dl, dd {
+    margin: 0;
+}
+
+/* リストロールを持つul、ol要素のデフォルトスタイルを削除する */
+ul[role='list'],
+ol[role='list'] {
+    list-style: none;
+}
+
+/* コアボディのデフォルトを設定する */
+body {
+    min-height: 100dvh;
+    line-height: 1.5;
+}
+
+/* 見出しとインタラクティブ要素の行間を短くする */
+h1, h2, h3, h4,
+button, input, label {
+    line-height: 1.1;
+}
+
+/* 見出しのテキストラップをバランスさせる */
+h1, h2,
+h3, h4 {
+    text-wrap: balance;
+}
+
+/* クラスを持たないA要素にデフォルトスタイルを適用する */
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+    color: currentColor;
+}
+
+/* 画像を扱いやすくする */
+img,
+picture {
+    max-width: 100%;
+    display: block;
+}
+
+/* 入力とボタンのフォントを継承する */
+input, button,
+textarea, select {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+/* rows属性を持たないテキストエリアが小さくならないようにする */
+textarea:not([rows]) {
+    min-height: 10em;
+}
+
+/* アンカーされたものには余分なスクロールマージンを持たせる */
+:target {
+    scroll-margin-block: 5ex;
+}

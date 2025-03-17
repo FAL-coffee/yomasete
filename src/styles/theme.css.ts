@@ -1,4 +1,3 @@
-// src/styles/theme.css.ts
 import { style } from '@vanilla-extract/css'
 
 export const layout = style({
